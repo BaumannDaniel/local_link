@@ -1,0 +1,1 @@
+qt_add_executable(local_link app.cpp)

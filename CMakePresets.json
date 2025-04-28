@@ -1,0 +1,47 @@
+{
+  "version": 6,
+  "configurePresets": [
+    {
+      "name": "base_linux",
+      "hidden": true,
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build-${presetName}"
+    },
+    {
+      "name": "debug_linux",
+      "inherits": "base_linux",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    },
+    {
+      "name": "release_linux",
+      "inherits": "base_linux",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "debug_linux",
+      "configurePreset": "debug_linux"
+    },
+    {
+      "name": "release_linux",
+      "configurePreset": "release_linux"
+    }
+  ],
+  "testPresets": [
+    {
+      "name": "test_debug_linux",
+      "configurePreset": "debug_linux",
+      "output": {
+        "outputOnFailure": true
+      },
+      "execution": {
+        "stopOnFailure": false
+      }
+    }
+  ]
+}
