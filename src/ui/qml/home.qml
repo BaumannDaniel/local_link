@@ -1,7 +1,6 @@
 import QtQuick
 import QtQuick.Controls
 
-
 Window {
     color: "black"
     height: 600
@@ -10,50 +9,53 @@ Window {
 
     ListView {
         height: parent.height
-        width: parent.width
         model: users_list_model
+        width: parent.width
 
         delegate: Rectangle {
-            height: 100
-            width: parent.width
-            radius: 10
             border.color: "white"
             border.width: 1
             color: Qt.rgba(1, 1, 1, 0.1)
+            height: 50
+            radius: 10
+            width: parent.width
 
-            Row {
+            Text {
                 anchors.left: parent.left
-                anchors.right: parent.right
                 anchors.leftMargin: 10
+                anchors.verticalCenter: parent.verticalCenter
+                color: "white"
+                font.bold: true
+                font.pointSize: 16
+                text: name
+            }
+            Button {
+                anchors.right: parent.right
                 anchors.rightMargin: 10
-                spacing: 10
+                anchors.verticalCenter: parent.verticalCenter
+                font.bold: true
+                font.pointSize: 14
+                padding: 8
+                text: "Call"
 
-                Text {
-                    color: "white"
-                    font.bold: true
-                    font.pointSize: 16
-                    text: name
-                }
+                background: Rectangle {
+                    border.color: "#A5D6A7"
+                    border.width: 1
+                    color: "#4CAF50"
+                    radius: 6
 
-                Rectangle {
+                    MouseArea {
+                        anchors.fill: parent
+                        hoverEnabled: true
 
-                }
-                Button {
-                    text: "Call"
-
-                    onClicked: {
-                        console.log("Calling", name);
+                        onEntered: parent.color = "#388E3C"
+                        onExited: parent.color = "#4CAF50"
                     }
                 }
-            }
 
-            // Optional hover effect
-            MouseArea {
-                anchors.fill: parent
-                hoverEnabled: true
-
-                onEntered: parent.color = Qt.rgba(1, 1, 1, 0.2)
-                onExited: parent.color = Qt.rgba(1, 1, 1, 0.1)
+                onClicked: {
+                    console.log("Calling", name);
+                }
             }
         }
     }
