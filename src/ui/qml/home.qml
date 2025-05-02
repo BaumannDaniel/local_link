@@ -36,7 +36,7 @@ Window {
                 font.bold: true
                 font.pointSize: 14
                 padding: 8
-                text: "Call"
+                text: qsTr("Call")
 
                 background: Rectangle {
                     border.color: "#A5D6A7"

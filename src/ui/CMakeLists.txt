@@ -1,5 +1,5 @@
 qt_add_library(local_link_ui
-        UsersListModel.h UsersListModel.cpp
+        users_list_model.h users_list_model.cpp
 )
 
 target_link_libraries(local_link_ui PUBLIC

@@ -11,7 +11,7 @@ namespace llink {
         NameRole = Qt::UserRole + 1,
     };
 
-    class UsersListModel : public QAbstractListModel {
+    class users_list_model : public QAbstractListModel {
         Q_OBJECT
         QList<UiUser> ui_users;
 
@@ -19,7 +19,7 @@ namespace llink {
         QHash<int, QByteArray> roleNames() const override;
 
     public:
-        explicit UsersListModel(QObject *parent = nullptr);
+        explicit users_list_model(QObject *parent = nullptr);
 
         int columnCount(const QModelIndex &parent) const override;
 
