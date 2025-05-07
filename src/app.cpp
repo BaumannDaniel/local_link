@@ -3,7 +3,7 @@
 #include <QQuickView>
 #include <QQmlContext>
 
-#include "ui/users_list_model.h"
+#include "ui/UsersListModel.h"
 
 #if QT_CONFIG(permissions)
   #include <QPermission>
@@ -13,7 +13,8 @@ int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
     QQmlApplicationEngine engine;
-    llink::users_list_model users_list_model;
+    auto user_repository_ptr = QSharedPointer<llink::UserRepository>::create();
+    llink::UsersListModel users_list_model = llink::UsersListModel(nullptr, user_repository_ptr);
     engine.rootContext()->setContextProperty("users_list_model", &users_list_model);
     engine.load(QUrl(QStringLiteral("qrc:/qml/home.qml")));
 

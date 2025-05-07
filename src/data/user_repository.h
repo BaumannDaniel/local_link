@@ -7,7 +7,11 @@ namespace llink {
     class IUserRepository : public QObject {
         Q_OBJECT
     signals:
-        void users_updated(QList<llink::User>) const;
+        void users_updated();
+
+    public:
+        explicit IUserRepository(QObject* parent = nullptr) : QObject(parent) {}
+        virtual QList<User> get_users() const = 0;
     };
 
     class UserRepository : public IUserRepository {
@@ -16,5 +20,6 @@ namespace llink {
 
     public:
         UserRepository();
+        QList<User> get_users() const override;
     };
 }
