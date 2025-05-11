@@ -10,9 +10,11 @@ QHash<int, QByteArray> llink::UsersListModel::roleNames() const {
 
 llink::UsersListModel::UsersListModel(
     QObject *parent,
-    QSharedPointer<IUserRepository> i_user_repository_ptr
+    QSharedPointer<IUserRepository> i_user_repository_ptr,
+    QSharedPointer<IUserScanner> i_user_scanner_ptr
 ) : QAbstractListModel(parent),
-    i_user_repository_ptr_(std::move(i_user_repository_ptr)) {
+    i_user_repository_ptr_(std::move(i_user_repository_ptr)),
+    i_user_scanner_ptr(std::move(i_user_scanner_ptr)) {
     connect(
         i_user_repository_ptr_.get(), &IUserRepository::users_updated,
         this, &UsersListModel::update_users
@@ -23,7 +25,7 @@ llink::UsersListModel::UsersListModel(
 void llink::UsersListModel::update_users() {
     ui_users_.clear();
     auto users = i_user_repository_ptr_->get_users();
-    for (const auto&[name, ip]: users) {
+    for (const auto &[name, ip]: users) {
         UiUser ui_user = {name};
         ui_users_.append(ui_user);
     }
@@ -43,4 +45,8 @@ QVariant llink::UsersListModel::data(const QModelIndex &index, int role) const {
     if (!index.isValid() || index.row() >= ui_users_.size()) return {};
     Q_UNUSED(role);
     return ui_users_[index.row()].name;
+}
+
+void llink::UsersListModel::scan_users() {
+    i_user_scanner_ptr->send_broadcast();
 }

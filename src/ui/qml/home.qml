@@ -7,10 +7,19 @@ Window {
     visible: true
     width: 600
 
+    Button {
+        id: scan_button
+        text: qsTr("Scan")
+        onClicked: {
+            users_list_model.scan_users();
+        }
+    }
+
     ListView {
         height: parent.height
         model: users_list_model
         width: parent.width
+        anchors.top: scan_button.bottom
 
         delegate: Rectangle {
             border.color: "white"
