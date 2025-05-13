@@ -1,4 +1,6 @@
 qt_add_library(local_link_data_lib
+        network_api.h network_api.cpp
+        network_message.h
         user.h
         user_repository.h user_repository.cpp
         user_scanner.h user_scanner.cpp
