@@ -11,10 +11,10 @@ QHash<int, QByteArray> llink::UsersListModel::roleNames() const {
 llink::UsersListModel::UsersListModel(
     QObject *parent,
     QSharedPointer<IUserRepository> i_user_repository_ptr,
-    QSharedPointer<IUserScanner> i_user_scanner_ptr
+    QSharedPointer<IUserStatusManager> i_user_status_manager_ptr
 ) : QAbstractListModel(parent),
     i_user_repository_ptr_(std::move(i_user_repository_ptr)),
-    i_user_scanner_ptr(std::move(i_user_scanner_ptr)) {
+    i_user_status_manager_ptr_(std::move(i_user_status_manager_ptr)) {
     connect(
         i_user_repository_ptr_.get(), &IUserRepository::users_updated,
         this, &UsersListModel::update_users
@@ -47,6 +47,6 @@ QVariant llink::UsersListModel::data(const QModelIndex &index, int role) const {
     return ui_users_[index.row()].name;
 }
 
-void llink::UsersListModel::scan_users() {
-    i_user_scanner_ptr->send_broadcast();
+void llink::UsersListModel::scan_users() const {
+    i_user_status_manager_ptr_->send_user_info_query();
 }

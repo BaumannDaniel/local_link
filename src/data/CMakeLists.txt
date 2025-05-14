@@ -3,7 +3,7 @@ qt_add_library(local_link_data_lib
         network_message.h
         user.h
         user_repository.h user_repository.cpp
-        user_scanner.h user_scanner.cpp
+        user_status_manager.h user_status_manager.cpp
 )
 
 target_include_directories(
