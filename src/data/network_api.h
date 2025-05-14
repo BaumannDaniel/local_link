@@ -5,6 +5,7 @@
 
 namespace llink {
     class INetworkApi : public QObject {
+        Q_OBJECT
     signals:
         void user_info_query(QHostAddress host_address);
 
@@ -24,6 +25,7 @@ namespace llink {
     };
 
     class NetworkApi : public INetworkApi {
+        Q_OBJECT
         QUdpSocket *udp_socket_;
 
     private slots:
