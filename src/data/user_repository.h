@@ -1,6 +1,6 @@
 #pragma once
-#include <QObject>
 
+#include "network_api.h"
 #include "user.h"
 
 namespace llink {
@@ -10,16 +10,23 @@ namespace llink {
         void users_updated();
 
     public:
-        explicit IUserRepository(QObject* parent = nullptr) : QObject(parent) {}
+        explicit IUserRepository(QObject *parent = nullptr) : QObject(parent) {
+        }
+
         virtual QList<User> get_users() const = 0;
     };
 
     class UserRepository : public IUserRepository {
         Q_OBJECT
-        QList<User> users;
+        QHash<QHostAddress, User> users_;
+        QSharedPointer<INetworkApi> i_network_api_ptr_;
+
+    private slots:
+        void add_user(const QSharedPointer<llink::NetworkResponse<llink::UserInfo> >& user_info);
 
     public:
-        UserRepository();
+        explicit UserRepository(QSharedPointer<INetworkApi> i_network_api_ptr);
+
         QList<User> get_users() const override;
     };
 }
