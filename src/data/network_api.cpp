@@ -16,7 +16,7 @@ void llink::NetworkApi::process_datagrams() {
         udp_socket_->readDatagram(datagram_array.data(), datagram_array.size(), &host_address);
         QDataStream stream(&datagram_array, QIODeviceBase::ReadOnly);
         stream >> message_type;
-        qDebug << "Received Message of type: " << message_type;
+        qDebug() << "Received Message of type: " << message_type;
         if (message_type == MessageType::USER_INFO_QUERY) {
             emit user_info_query(host_address);
             continue;
