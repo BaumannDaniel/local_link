@@ -1,5 +1,8 @@
 #pragma once
 
+#include <QHash>
+#include <QSharedPointer>
+
 #include "network_api.h"
 #include "user.h"
 
@@ -22,7 +25,7 @@ namespace llink {
         QSharedPointer<INetworkApi> i_network_api_ptr_;
 
     private slots:
-        void add_user(const QSharedPointer<llink::NetworkResponse<llink::UserInfo> >& user_info);
+        void add_user(const QSharedPointer<llink::NetworkResponse<llink::UserInfo> > &user_info);
 
     public:
         explicit UserRepository(QSharedPointer<INetworkApi> i_network_api_ptr);
