@@ -2,7 +2,7 @@
 
 llink::NetworkApi::NetworkApi(QUdpSocket *udp_socket) : udp_socket_(udp_socket) {
     udp_socket_->setParent(this);
-    udp_socket_->bind(10050);
+    udp_socket_->bind(SOCKET_PORT);
     connect(udp_socket_, &QUdpSocket::readyRead,
             this, &NetworkApi::process_datagrams);
 }
@@ -39,19 +39,19 @@ void llink::NetworkApi::broadcast_user_info_query() const {
     QByteArray message_byte_array;
     QDataStream stream(&message_byte_array, QIODevice::WriteOnly);
     stream << MessageType::USER_INFO_QUERY;
-    udp_socket_->writeDatagram(message_byte_array, QHostAddress::Broadcast, 10050);
+    udp_socket_->writeDatagram(message_byte_array, QHostAddress::Broadcast, SOCKET_PORT);
 }
 
 void llink::NetworkApi::broadcast_user_disconnected() const {
     QByteArray message_byte_array;
     QDataStream stream(&message_byte_array, QIODevice::WriteOnly);
     stream << MessageType::USER_DISCONNECTED;
-    udp_socket_->writeDatagram(message_byte_array, QHostAddress::Broadcast, 10050);
+    udp_socket_->writeDatagram(message_byte_array, QHostAddress::Broadcast, SOCKET_PORT);
 }
 
 void llink::NetworkApi::send_user_info(QHostAddress host_address, UserInfo user_info) const {
     QByteArray message_byte_array;
     QDataStream stream(&message_byte_array, QIODevice::WriteOnly);
     stream << MessageType::USER_INFO_RESPONSE << user_info;
-    udp_socket_->writeDatagram(message_byte_array, host_address, 10050);
+    udp_socket_->writeDatagram(message_byte_array, host_address, SOCKET_PORT);
 }

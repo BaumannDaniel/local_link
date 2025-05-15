@@ -14,6 +14,7 @@ namespace llink {
         void user_info_response(QSharedPointer<llink::NetworkResponse<llink::UserInfo> >);
 
     public:
+        constexpr quint16 SOCKET_PORT = 10050;
         explicit INetworkApi(QObject *parent = nullptr) : QObject(parent) {
         }
 
