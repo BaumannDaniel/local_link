@@ -23,12 +23,15 @@ llink::UsersListModel::UsersListModel(
 }
 
 void llink::UsersListModel::update_users() {
+    qDebug() << "Updating users";
+    beginResetModel();
     ui_users_.clear();
-    auto users = i_user_repository_ptr_->get_users();
-    for (const auto &[name, ip]: users) {
+    for (auto users = i_user_repository_ptr_->get_users(); const auto &[name, ip]: users) {
         UiUser ui_user = {name};
         ui_users_.append(ui_user);
+        emit dataChanged(index(ui_users_.size()-1), index(ui_users_.size()-1));
     }
+    endResetModel();
 }
 
 
