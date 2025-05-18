@@ -12,7 +12,7 @@ namespace llink {
 
         void userDisconnected(QHostAddress host_address);
 
-        void userInfoResponse(QSharedPointer<llink::NetworkResponse<llink::UserInfo> >);
+        void userInfoResponse(QSharedPointer<llink::NetworkResponse<llink::UserInfo> > user_info_response);
 
     public:
         explicit INetworkApi(QObject *parent = nullptr) : QObject(parent) {
