@@ -4,7 +4,7 @@
 
 llink::UserRepository::UserRepository(QSharedPointer<INetworkApi> i_network_api_ptr)
     : i_network_api_ptr_(std::move(i_network_api_ptr)) {
-    connect(i_network_api_ptr_.get(), &INetworkApi::user_info_response,
+    connect(i_network_api_ptr_.get(), &INetworkApi::userInfoResponse,
             this, &UserRepository::add_user);
 }
 
