@@ -1,22 +1,15 @@
-#include "udp_socket_mock.h"
+#include "udp_socket_adapter_mock.h"
 
-bool llink::MockQUdpSocket::bind(quint16 port, BindMode mode) {
-    const BindCall bind_call(port, mode);
-    bind_calls.append(bind_call);
-    return true;
-}
-
-
-bool llink::MockQUdpSocket::hasPendingDatagrams() const {
+bool llink::MockUdpSocketAdapter::hasPendingDatagrams() const {
     return !pending_datagrams.empty();
 }
 
-qint64 llink::MockQUdpSocket::pendingDatagramSize() const {
+qint64 llink::MockUdpSocketAdapter::pendingDatagramSize() const {
     if (pending_datagrams.empty()) return -1;
     return pending_datagrams.first().data.size();
 }
 
-qint64 llink::MockQUdpSocket::readDatagram(char *data, qint64 maxlen, QHostAddress *host, quint16 *port) {
+qint64 llink::MockUdpSocketAdapter::readDatagram(char *data, qint64 maxlen, QHostAddress *host, quint16 *port) {
     if (pending_datagrams.isEmpty()) return -1;
 
     const TestDatagram test_datagram = pending_datagrams.dequeue();
@@ -30,14 +23,13 @@ qint64 llink::MockQUdpSocket::readDatagram(char *data, qint64 maxlen, QHostAddre
     return number_of_bytes;
 }
 
-qint64 llink::MockQUdpSocket::writeDatagram(const QByteArray &datagram, const QHostAddress &host, quint16 port) {
+qint64 llink::MockUdpSocketAdapter::writeDatagram(const QByteArray &datagram, const QHostAddress &host, quint16 port) {
     const TestDatagram test_datagram(datagram, host, port);
     written_datagrams.append(test_datagram);
     return datagram.size();
 }
 
-void llink::MockQUdpSocket::reset_mock() {
-    bind_calls.clear();
+void llink::MockUdpSocketAdapter::reset_mock() {
     pending_datagrams.clear();
     written_datagrams.clear();
 }

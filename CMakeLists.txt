@@ -7,6 +7,7 @@ if (EXISTS "${CMAKE_SOURCE_DIR}/local.cmake")
     message(STATUS "Included local.cmake")
 endif ()
 find_package(Qt6 REQUIRED COMPONENTS Core Gui Multimedia Qml Quick Network Test)
+find_package(GTest REQUIRED)
 qt_standard_project_setup()
 
 add_subdirectory(src)
