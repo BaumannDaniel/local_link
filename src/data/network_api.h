@@ -2,6 +2,7 @@
 #include <QUdpSocket>
 
 #include "network_message.h"
+#include "udp_socket_adapter.h"
 
 namespace llink {
     class INetworkApi : public QObject {
@@ -14,7 +15,6 @@ namespace llink {
         void userInfoResponse(QSharedPointer<llink::NetworkResponse<llink::UserInfo> >);
 
     public:
-        constexpr quint16 SOCKET_PORT = 10050;
         explicit INetworkApi(QObject *parent = nullptr) : QObject(parent) {
         }
 
@@ -27,13 +27,13 @@ namespace llink {
 
     class NetworkApi : public INetworkApi {
         Q_OBJECT
-        QUdpSocket *udp_socket_;
+        QSharedPointer<IUdpSocketAdapter> i_udp_socket_adapter_ptr_;
 
     private slots:
         void processDatagrams();
 
     public:
-        explicit NetworkApi(QUdpSocket *udp_socket);
+        explicit NetworkApi(QSharedPointer<IUdpSocketAdapter> i_udp_socket_adapter_ptr);
 
         void broadcastUserInfoQuery() const override;
 

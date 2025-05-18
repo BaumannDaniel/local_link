@@ -13,8 +13,8 @@ int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
     QQmlApplicationEngine engine;
-    auto udp_socket = new QUdpSocket();
-    auto network_api_ptr = QSharedPointer<llink::NetworkApi>::create(udp_socket);
+    auto udp_socket_adapter_ptr = QSharedPointer<llink::UdpSocketAdapter>::create();
+    auto network_api_ptr = QSharedPointer<llink::NetworkApi>::create(udp_socket_adapter_ptr);
     auto user_repository_ptr = QSharedPointer<llink::UserRepository>::create(network_api_ptr);
     auto user_status_manager_ptr = QSharedPointer<llink::UserStatusManager>::create(network_api_ptr);
     user_status_manager_ptr->send_user_info_broadcast();
