@@ -11,7 +11,7 @@ void llink::NetworkApi::processDatagrams() {
     QHostAddress host_address;
     quint16 message_type;
     while (i_udp_socket_adapter_ptr_->hasPendingDatagrams()) {
-        datagram_array.resize(static_cast<int>(i_udp_socket_adapter_ptr_->pendingDatagramSize()));
+        datagram_array.resize(i_udp_socket_adapter_ptr_->pendingDatagramSize());
         i_udp_socket_adapter_ptr_->readDatagram(datagram_array.data(), datagram_array.size(), &host_address);
         QDataStream stream(&datagram_array, QIODeviceBase::ReadOnly);
         stream >> message_type;

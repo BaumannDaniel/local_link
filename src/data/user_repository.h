@@ -27,6 +27,8 @@ namespace llink {
     private slots:
         void add_user(const QSharedPointer<llink::NetworkResponse<llink::UserInfo> > &user_info);
 
+        void remove_user(const QHostAddress &host_address);
+
     public:
         explicit UserRepository(QSharedPointer<INetworkApi> i_network_api_ptr);
 
