@@ -12,6 +12,16 @@
       }
     },
     {
+      "name": "base_windows",
+      "hidden": true,
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build-${presetName}",
+      "cacheVariables": {
+        "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/vcpkg/scripts/buildsystems/vcpkg.cmake",
+        "VCPKG_TARGET_TRIPLET": "x64-windows"
+      }
+    },
+    {
       "name": "debug_linux",
       "inherits": "base_linux",
       "cacheVariables": {
@@ -19,8 +29,22 @@
       }
     },
     {
+      "name": "debug_windows",
+      "inherits": "base_windows",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    },
+    {
       "name": "release_linux",
       "inherits": "base_linux",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release"
+      }
+    },
+    {
+      "name": "release_windows",
+      "inherits": "base_windows",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release"
       }
@@ -32,14 +56,32 @@
       "configurePreset": "debug_linux"
     },
     {
+      "name": "debug_windows",
+      "configurePreset": "debug_windows"
+    },
+    {
       "name": "release_linux",
       "configurePreset": "release_linux"
+    },
+    {
+      "name": "release_windows",
+      "configurePreset": "release_windows"
     }
   ],
   "testPresets": [
     {
       "name": "test_debug_linux",
       "configurePreset": "debug_linux",
+      "output": {
+        "outputOnFailure": true
+      },
+      "execution": {
+        "stopOnFailure": false
+      }
+    },
+    {
+      "name": "test_debug_windows",
+      "configurePreset": "debug_windows",
       "output": {
         "outputOnFailure": true
       },
