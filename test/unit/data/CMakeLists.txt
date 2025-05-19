@@ -13,6 +13,4 @@ target_link_libraries(
         PRIVATE GTest::gmock_main
 )
 
-#add_test(NAME data_lib_unit_tests COMMAND local_link_data_lib_unit_tests)
-
 gtest_discover_tests(local_link_data_lib_unit_tests)
