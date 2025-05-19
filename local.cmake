@@ -1,1 +1,0 @@
-set(Qt6_DIR /home/daniel/Qt/6.8.3/gcc_64/lib/cmake/Qt6)
