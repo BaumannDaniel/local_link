@@ -21,9 +21,12 @@ int main(int argc, char *argv[])
     auto user_status_manager_ptr = QSharedPointer<llink::UserStatusManager>::create(network_api_ptr);
     user_status_manager_ptr->send_user_info_broadcast();
     user_status_manager_ptr->send_user_info_query();
+    QObject::connect(&app, &QCoreApplication::aboutToQuit, [user_status_manager_ptr] {
+        qDebug() << "App is shutting down!";
+        user_status_manager_ptr->send_user_disconnect_broadcast();
+    });
     llink::UsersListModel users_list_model = llink::UsersListModel(nullptr, user_repository_ptr, user_status_manager_ptr);
     engine.rootContext()->setContextProperty("users_list_model", &users_list_model);
     engine.load(QUrl(QStringLiteral("qrc:/qml/home.qml")));
-
     return app.exec();
 }
