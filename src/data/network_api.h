@@ -1,5 +1,6 @@
 #pragma once
 #include <QUdpSocket>
+#include <QSharedPointer>
 
 #include "network_message.h"
 #include "udp_socket_adapter.h"

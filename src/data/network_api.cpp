@@ -1,3 +1,5 @@
+#include <QDebug>
+
 #include "network_api.h"
 
 llink::NetworkApi::NetworkApi(QSharedPointer<IUdpSocketAdapter> i_udp_socket_adapter_ptr)

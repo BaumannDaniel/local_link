@@ -4,4 +4,5 @@
 /.vscode
 /vcpkg_installed
 
+CMakeLists.txt.user
 local.cmake

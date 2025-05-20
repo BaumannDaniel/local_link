@@ -1,4 +1,4 @@
-qt_add_library(local_link_data_lib
+qt_add_library(local_link_data_lib STATIC
         network_api.h network_api.cpp
         network_message.h
         udp_socket_adapter.h udp_socket_adapter.cpp

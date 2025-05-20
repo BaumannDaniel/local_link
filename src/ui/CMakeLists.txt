@@ -1,4 +1,4 @@
-qt_add_library(local_link_ui_lib
+qt_add_library(local_link_ui_lib STATIC
         UsersListModel.h UsersListModel.cpp
 )
 

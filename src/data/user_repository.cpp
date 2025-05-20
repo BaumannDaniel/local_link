@@ -1,6 +1,7 @@
 #include "user_repository.h"
 
 #include <utility>
+#include <QDebug>
 
 llink::UserRepository::UserRepository(QSharedPointer<INetworkApi> i_network_api_ptr)
     : i_network_api_ptr_(std::move(i_network_api_ptr)) {

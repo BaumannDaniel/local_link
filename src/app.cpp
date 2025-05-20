@@ -2,6 +2,7 @@
 #include <QQmlApplicationEngine>
 #include <QQuickView>
 #include <QQmlContext>
+#include <QLoggingCategory>
 
 #include "ui/UsersListModel.h"
 
@@ -11,6 +12,7 @@
 
 int main(int argc, char *argv[])
 {
+    QLoggingCategory::setFilterRules("qt.core.signal.warning=true");
     QGuiApplication app(argc, argv);
     QQmlApplicationEngine engine;
     auto udp_socket_adapter_ptr = QSharedPointer<llink::UdpSocketAdapter>::create();
