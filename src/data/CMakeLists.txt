@@ -5,6 +5,7 @@ qt_add_library(local_link_data_lib STATIC
         user.h
         user_repository.h user_repository.cpp
         user_status_manager.h user_status_manager.cpp
+        video_recorder.h video_recorder.cpp
 )
 
 target_include_directories(
@@ -15,4 +16,5 @@ target_include_directories(
 target_link_libraries(local_link_data_lib PUBLIC
         Qt::Core
         Qt::Network
+        Qt6::Multimedia
 )
