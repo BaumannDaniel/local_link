@@ -12,8 +12,11 @@ namespace llink {
         QMediaCaptureSession media_capture_session_;
         QVideoSink video_sink_;
 
+    private slots:
+        void processFrame(const QVideoFrame &video_frame);
+
     signals:
-        void newFrame(const QVideoFrame &video_frame);
+        void newFrame(QSharedPointer<QImage> frame);
 
     public:
         explicit VideoRecorder(QObject *parent = nullptr);

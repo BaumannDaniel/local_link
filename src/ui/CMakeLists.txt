@@ -1,5 +1,7 @@
 qt_add_library(local_link_ui_lib STATIC
         UsersListModel.h UsersListModel.cpp
+        video_frame_painted_item.h video_frame_painted_item.cpp
+        video_model.h video_model.cpp
 )
 
 target_link_libraries(local_link_ui_lib PUBLIC

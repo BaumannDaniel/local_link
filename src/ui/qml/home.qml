@@ -1,25 +1,41 @@
 import QtQuick
 import QtQuick.Controls
+import llink 1.0
 
 Window {
+    id: root
+
     color: "black"
     height: 600
     visible: true
     width: 600
 
-    Button {
+    VideoFramePaintedItem {
+        id: paintedItem
+        width: 160
+        height: 90
+    }
+
+    Component.onCompleted: {
+        video_model.frameUpdated.connect(function(frame) {
+            paintedItem.setCurrentFrame(frame);
+        });
+    }
+
+
+    /*Button {
         id: scan_button
         text: qsTr("Scan")
         onClicked: {
             users_list_model.scan_users();
         }
-    }
+    }*/
 
     ListView {
         height: parent.height
         model: users_list_model
         width: parent.width
-        anchors.top: scan_button.bottom
+        //anchors.top: scan_button.bottom
 
         delegate: Rectangle {
             border.color: "white"
