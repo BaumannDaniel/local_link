@@ -34,7 +34,7 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("users_list_model", &users_list_model);
     engine.rootContext()->setContextProperty("video_model", &video_model);
     qmlRegisterType<llink::VideoFramePaintedItem>("llink", 1, 0, "VideoFramePaintedItem");
-    engine.load(QUrl(QStringLiteral("qrc:/qml/home.qml")));
+    engine.load(QUrl(QStringLiteral("qrc:/qml/root.qml")));
     video_recorder_ptr->start();
     return app.exec();
 }

@@ -13,7 +13,9 @@ target_link_libraries(local_link_ui_lib PUBLIC
 )
 
 set(local_link_ui_resource_files
+        "qml/call.qml"
         "qml/home.qml"
+        "qml/root.qml"
 )
 
 qt_add_resources(local_link_ui_lib "local_link_ui"
