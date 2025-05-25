@@ -3,12 +3,12 @@
 
 namespace llink {
     struct MessageType {
-        static constexpr quint16 USER_INFO_QUERY = 1000;
-        static constexpr quint16 USER_DISCONNECTED = 1001;
-        static constexpr quint16 USER_INFO_RESPONSE = 1002;
+        static constexpr qint8 USER_INFO_QUERY = 11;
+        static constexpr quint8 USER_DISCONNECTED = 12;
+        static constexpr quint8 USER_INFO_RESPONSE = 13;
     };
     template <typename T> struct NetworkMessage {
-        quint16 message_type;
+        quint8 message_type;
         T payload;
     };
     template <typename T> struct NetworkResponse {
