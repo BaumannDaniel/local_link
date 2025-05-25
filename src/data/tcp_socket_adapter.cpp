@@ -15,3 +15,6 @@ QByteArray llink::TcpSocketAdapter::readAll() const {
     return tcp_socket_ptr_->readAll();
 }
 
+void llink::TcpSocketAdapter::connectToHost(const QHostAddress host_address, const qint16 port) const {
+    tcp_socket_ptr_->connectToHost(host_address, port);
+}

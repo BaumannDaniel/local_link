@@ -18,6 +18,8 @@ namespace llink {
         virtual quint64 write(const QByteArray &byte_array) const = 0;
 
         virtual QByteArray readAll() const = 0;
+
+        virtual void connectToHost(QHostAddress host_address, qint16 port) const = 0;
     };
 
     class TcpSocketAdapter : public ITcpSocketAdapter {
@@ -29,5 +31,7 @@ namespace llink {
         quint64 write(const QByteArray &byte_array) const override;
 
         QByteArray readAll() const override;
+
+        void connectToHost(QHostAddress host_address, qint16 port) const;
     };
 }
