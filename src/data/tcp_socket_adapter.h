@@ -14,14 +14,20 @@ namespace llink {
 
         explicit ITcpSocketAdapter(QObject *parent = nullptr) : QObject(parent) {
         }
+
+        virtual quint64 write(const QByteArray &byte_array) const = 0;
+
+        virtual QByteArray readAll() const = 0;
     };
 
     class TcpSocketAdapter : public ITcpSocketAdapter {
         QTcpSocket *tcp_socket_ptr_;
 
     public:
-        TcpSocketAdapter();
+        explicit TcpSocketAdapter(QTcpSocket* tcp_socket_ptr, QObject *parent = nullptr);
 
-        quint64 write(const QByteArray &byte_array) const;
+        quint64 write(const QByteArray &byte_array) const override;
+
+        QByteArray readAll() const override;
     };
 }
