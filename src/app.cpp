@@ -5,7 +5,7 @@
 #include <QLoggingCategory>
 
 #include "video_recorder.h"
-#include "ui/UsersListModel.h"
+#include "ui/users_list_model.h"
 #include "ui/video_frame_item.h"
 #include "ui/call_model.h"
 
@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
         qDebug() << "App is shutting down!";
         user_status_manager_ptr->send_user_disconnect_broadcast();
     });
-    llink::UsersListModel users_list_model = llink::UsersListModel(nullptr, user_repository_ptr, user_status_manager_ptr);
+    llink::users_list_model users_list_model = llink::users_list_model(nullptr, user_repository_ptr, user_status_manager_ptr);
     llink::CallModel call_model = llink::CallModel(video_recorder_ptr);
     engine.rootContext()->setContextProperty("users_list_model", &users_list_model);
     engine.rootContext()->setContextProperty("call_model", &call_model);
