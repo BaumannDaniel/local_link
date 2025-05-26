@@ -6,7 +6,7 @@
 
 #include "video_recorder.h"
 #include "ui/UsersListModel.h"
-#include "ui/video_frame_painted_item.h"
+#include "ui/video_frame_item.h"
 #include "ui/call_model.h"
 
 #if QT_CONFIG(permissions)
@@ -34,7 +34,7 @@ int main(int argc, char *argv[])
     llink::CallModel call_model = llink::CallModel(video_recorder_ptr);
     engine.rootContext()->setContextProperty("users_list_model", &users_list_model);
     engine.rootContext()->setContextProperty("call_model", &call_model);
-    qmlRegisterType<llink::VideoFramePaintedItem>("llink", 1, 0, "VideoFramePaintedItem");
+    qmlRegisterType<llink::VideoFrameItem>("llink", 1, 0, "VideoFrameItem");
     engine.load(QUrl(QStringLiteral("qrc:/qml/root.qml")));
     video_recorder_ptr->start();
     return app.exec();

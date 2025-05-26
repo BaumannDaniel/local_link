@@ -3,8 +3,8 @@ import QtQuick.Controls
 import llink 1.0
 
 Item {
-    VideoFramePaintedItem {
-        id: local_video_painted_item
+    VideoFrameItem {
+        id: local_video_frame
 
         width: 160
         height: 90
@@ -14,7 +14,7 @@ Item {
 
     Component.onCompleted: {
         frameUpdateCallback = function (frame) {
-            local_video_painted_item.setCurrentFrame(frame);
+            local_video_frame.setCurrentFrame(frame);
         };
         call_model.frameUpdated.connect(frameUpdateCallback);
     }

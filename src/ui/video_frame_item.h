@@ -7,12 +7,12 @@
 #include "video_recorder.h"
 
 namespace llink {
-    class VideoFramePaintedItem : public QQuickPaintedItem {
+    class VideoFrameItem : public QQuickPaintedItem {
         Q_OBJECT
         QSharedPointer<QImage> current_frame_ptr_;
 
     public:
-        explicit VideoFramePaintedItem(QQuickItem *parent = nullptr);
+        explicit VideoFrameItem(QQuickItem *parent = nullptr);
 
         void paint(QPainter *painter) override;
 
