@@ -16,14 +16,14 @@ Item {
         frameUpdateCallback = function (frame) {
             local_video_painted_item.setCurrentFrame(frame);
         };
-        video_model.frameUpdated.connect(frameUpdateCallback);
+        call_model.frameUpdated.connect(frameUpdateCallback);
     }
 
     Button {
         text: qsTr("Close Call")
         onClicked: {
             if (frameUpdateCallback) {
-                video_model.frameUpdated.disconnect(frameUpdateCallback);
+                call_model.frameUpdated.disconnect(frameUpdateCallback);
                 frameUpdateCallback = null;
             }
             root_stack.pop();

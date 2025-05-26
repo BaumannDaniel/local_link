@@ -5,7 +5,7 @@
 #include "video_recorder.h"
 
 namespace llink {
-    class VideoModel : public QObject {
+    class CallModel : public QObject {
         Q_OBJECT
         QSharedPointer<VideoRecorder> video_recorder_ptr_;
         QSharedPointer<QImage> current_frame_ptr_;
@@ -14,6 +14,6 @@ namespace llink {
             void frameUpdated(QSharedPointer<QImage> frame);
 
     public:
-        explicit VideoModel(const QSharedPointer<VideoRecorder> &video_recorder_ptr, QObject *parent = nullptr);
+        explicit CallModel(const QSharedPointer<VideoRecorder> &video_recorder_ptr, QObject *parent = nullptr);
     };
 }
