@@ -23,6 +23,7 @@ int main(int argc, char *argv[])
     auto tcp_server_adapter_ptr = QSharedPointer<llink::TcpServerAdapter>::create();
     auto network_api_ptr = QSharedPointer<llink::NetworkApi>::create(udp_socket_adapter_ptr, tcp_server_adapter_ptr);
     auto user_repository_ptr = QSharedPointer<llink::UserRepository>::create(network_api_ptr);
+    auto call_manager_ptr = QSharedPointer<llink::CallManager>::create(network_api_ptr);
     auto user_status_manager_ptr = QSharedPointer<llink::UserStatusManager>::create(network_api_ptr);
     user_status_manager_ptr->send_user_info_broadcast();
     user_status_manager_ptr->send_user_info_query();
@@ -31,7 +32,7 @@ int main(int argc, char *argv[])
         user_status_manager_ptr->send_user_disconnect_broadcast();
     });
     llink::users_list_model users_list_model = llink::users_list_model(nullptr, user_repository_ptr, user_status_manager_ptr);
-    llink::CallModel call_model = llink::CallModel(video_recorder_ptr);
+    llink::CallModel call_model = llink::CallModel(video_recorder_ptr, call_manager_ptr);
     engine.rootContext()->setContextProperty("users_list_model", &users_list_model);
     engine.rootContext()->setContextProperty("call_model", &call_model);
     qmlRegisterType<llink::VideoFrameItem>("llink", 1, 0, "VideoFrameItem");

@@ -6,6 +6,7 @@
 
 namespace llink {
     class CallManager : public QObject {
+        Q_OBJECT
         QSharedPointer<INetworkApi> network_api_ptr_;
         QSharedPointer<Connection> current_connection_ptr_ = nullptr;
 

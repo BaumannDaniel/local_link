@@ -12,7 +12,7 @@ llink::UserRepository::UserRepository(QSharedPointer<INetworkApi> i_network_api_
 }
 
 void llink::UserRepository::add_user(const QSharedPointer<llink::NetworkResponse<llink::UserInfo> > &user_info) {
-    User user(user_info->payload.name, user_info->sender_address.toString());
+    User user(user_info->payload.name, user_info->sender_address);
     users_[user_info->sender_address] = user;
     qDebug() << "Adding user with name: " << user.name;
     emit users_updated();

@@ -8,6 +8,7 @@
 namespace llink {
     struct UiUser {
         QString name;
+        QHostAddress adress;
     };
 
     enum UiUserAttributeRoles {
