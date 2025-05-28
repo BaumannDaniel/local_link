@@ -37,7 +37,7 @@ void llink::users_list_model::update_users() {
 
 
 int llink::users_list_model::columnCount(const QModelIndex &parent) const {
-    return 1;
+    return 2;
 }
 
 int llink::users_list_model::rowCount(const QModelIndex &parent) const {
@@ -47,8 +47,16 @@ int llink::users_list_model::rowCount(const QModelIndex &parent) const {
 
 QVariant llink::users_list_model::data(const QModelIndex &index, int role) const {
     if (!index.isValid() || index.row() >= ui_users_.size()) return {};
-    Q_UNUSED(role);
-    return ui_users_[index.row()].name;
+
+    const UiUser &user = ui_users_[index.row()];
+    switch (role) {
+        case NameRole:
+            return user.name;
+        case AddressRole:
+            return user.address;
+        default:
+            return {};
+    }
 }
 
 void llink::users_list_model::scan_users() const {
