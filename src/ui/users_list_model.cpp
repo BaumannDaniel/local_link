@@ -5,6 +5,7 @@
 QHash<int, QByteArray> llink::users_list_model::roleNames() const {
     return {
         {NameRole, "name"},
+        {AddressRole, "address"}
     };
 }
 
@@ -27,7 +28,7 @@ void llink::users_list_model::update_users() {
     beginResetModel();
     ui_users_.clear();
     for (auto users = i_user_repository_ptr_->get_users(); const auto &[name, ip]: users) {
-        UiUser ui_user = {name};
+        UiUser ui_user = {name, ip.toString()};
         ui_users_.append(ui_user);
         emit dataChanged(index(ui_users_.size()-1), index(ui_users_.size()-1));
     }

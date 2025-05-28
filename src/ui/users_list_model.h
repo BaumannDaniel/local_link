@@ -8,11 +8,12 @@
 namespace llink {
     struct UiUser {
         QString name;
-        QHostAddress adress;
+        QString address;
     };
 
     enum UiUserAttributeRoles {
         NameRole = Qt::UserRole + 1,
+        AddressRole = NameRole + 1
     };
 
     class users_list_model : public QAbstractListModel {

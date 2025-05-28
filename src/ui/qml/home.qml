@@ -60,6 +60,7 @@ ListView {
 
             onClicked: {
                 console.log("Calling", name);
+                call_model.startCall(address);
                 root_stack.push("call.qml");
             }
         }

@@ -22,5 +22,7 @@ namespace llink {
             const QSharedPointer<CallManager> &call_manager_ptr,
             QObject *parent = nullptr
         );
+
+        Q_INVOKABLE void startCall(const QString &host_address) const;
     };
 }

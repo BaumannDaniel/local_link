@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
     auto tcp_server_adapter_ptr = QSharedPointer<llink::TcpServerAdapter>::create();
     auto network_api_ptr = QSharedPointer<llink::NetworkApi>::create(udp_socket_adapter_ptr, tcp_server_adapter_ptr);
     auto user_repository_ptr = QSharedPointer<llink::UserRepository>::create(network_api_ptr);
-    auto call_manager_ptr = QSharedPointer<llink::CallManager>::create(network_api_ptr);
+    auto call_manager_ptr = QSharedPointer<llink::CallManager>::create(network_api_ptr, video_recorder_ptr);
     auto user_status_manager_ptr = QSharedPointer<llink::UserStatusManager>::create(network_api_ptr);
     user_status_manager_ptr->send_user_info_broadcast();
     user_status_manager_ptr->send_user_info_query();

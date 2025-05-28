@@ -13,3 +13,8 @@ llink::CallModel::CallModel(
     connect(call_manager_ptr_.get(), &CallManager::videoFrameReceived,
             this, &CallModel::remoteFrameUpdated);
 }
+
+void llink::CallModel::startCall(const QString &host_address) const {
+    const auto address = QHostAddress(host_address);
+    call_manager_ptr_->startCall(address);
+}
