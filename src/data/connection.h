@@ -1,7 +1,7 @@
 #pragma once
 #include <QSharedPointer>
 
-#include "tcp_socket_adapter.h"
+#include "network/tcp_socket_adapter.h"
 
 namespace llink {
     class Connection : public QObject {

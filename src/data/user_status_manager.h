@@ -1,6 +1,6 @@
 #pragma once
 
-#include "network_api.h"
+#include "network/network_api.h"
 
 namespace llink {
     class IUserStatusManager : public QObject {

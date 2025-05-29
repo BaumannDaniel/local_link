@@ -3,7 +3,7 @@
 #include <QHash>
 #include <QSharedPointer>
 
-#include "network_api.h"
+#include "network/network_api.h"
 #include "user.h"
 
 namespace llink {
