@@ -19,6 +19,6 @@ namespace llink {
     public:
         explicit Connection(QSharedPointer<ITcpSocketAdapter> i_tcp_socket_adapter_ptr, QObject *parent = nullptr);
 
-        void sendVideoFrame(QSharedPointer<QImage> video_frame_ptr);
+        void sendVideoFrame(const QSharedPointer<QImage> &video_frame_ptr) const;
     };
 }

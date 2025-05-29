@@ -39,7 +39,7 @@ void llink::Connection::processDataStream() {
     }
 }
 
-void llink::Connection::sendVideoFrame(QSharedPointer<QImage> video_frame_ptr) {
+void llink::Connection::sendVideoFrame(const QSharedPointer<QImage> &video_frame_ptr) const {
     QByteArray imageData;
     QBuffer buffer(&imageData);
     buffer.open(QIODevice::WriteOnly);
@@ -49,7 +49,7 @@ void llink::Connection::sendVideoFrame(QSharedPointer<QImage> video_frame_ptr) {
     QByteArray packet;
     QDataStream stream(&packet, QIODevice::WriteOnly);
     stream.setByteOrder(QDataStream::BigEndian);
-    stream << size; // 4 bytes
+    stream << size;
     packet.append(imageData); // image payload
 
     i_tcp_socket_adapter_ptr_->write(packet);

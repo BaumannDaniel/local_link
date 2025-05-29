@@ -14,20 +14,22 @@ namespace llink {
         void newConnection();
 
     public:
-        static constexpr quint16 SOCKET_PORT = 10051;
-
         explicit ITcpServerAdapter(QObject *parent = nullptr) : QObject(parent) {
         }
 
         virtual QSharedPointer<ITcpSocketAdapter> nextPendingConnection() const = 0;
+
+        virtual bool listen(const QHostAddress &host_address, quint16 port) = 0;
     };
 
     class TcpServerAdapter : public ITcpServerAdapter {
         QTcpServer *tcp_server_ptr_;
 
     public:
-        TcpServerAdapter();
+        TcpServerAdapter(QObject *parent = nullptr);
 
         QSharedPointer<ITcpSocketAdapter> nextPendingConnection() const override;
+
+        bool listen(const QHostAddress &host_address, quint16 port) override;
     };
 }

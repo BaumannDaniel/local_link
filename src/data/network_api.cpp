@@ -6,14 +6,18 @@
 
 llink::NetworkApi::NetworkApi(
     QSharedPointer<IUdpSocketAdapter> i_udp_socket_adapter_ptr,
-    QSharedPointer<ITcpServerAdapter> i_tcp_server_adapter_ptr
+    ITcpServerAdapter *i_tcp_server_adapter_ptr,
+    QObject *parent
 )
-    : i_udp_socket_adapter_ptr_(std::move(i_udp_socket_adapter_ptr)),
-      i_tcp_server_adapter_ptr_(std::move(i_tcp_server_adapter_ptr)) {
+    : INetworkApi(parent),
+      i_udp_socket_adapter_ptr_(std::move(i_udp_socket_adapter_ptr)),
+      i_tcp_server_adapter_ptr_(i_tcp_server_adapter_ptr) {
     connect(i_udp_socket_adapter_ptr_.get(), &IUdpSocketAdapter::readyRead,
             this, &NetworkApi::processDatagrams);
-    connect(i_tcp_server_adapter_ptr_.get(), &ITcpServerAdapter::newConnection,
+    connect(i_tcp_server_adapter_ptr_, &ITcpServerAdapter::newConnection,
             this, &NetworkApi::processNewConnection);
+    i_tcp_server_adapter_ptr_->setParent(this);
+    i_tcp_server_adapter_ptr_->listen(QHostAddress::Any, TCP_SOCKET_PORT);
 }
 
 void llink::NetworkApi::processDatagrams() {
@@ -72,10 +76,9 @@ void llink::NetworkApi::sendUserInfo(QHostAddress host_address, UserInfo user_in
     i_udp_socket_adapter_ptr_->writeDatagram(message_byte_array, host_address, IUdpSocketAdapter::SOCKET_PORT);
 }
 
-QSharedPointer<llink::Connection> llink::INetworkApi::createConnection(const QHostAddress& host_address) {
+QSharedPointer<llink::Connection> llink::INetworkApi::createConnection(const QHostAddress &host_address) {
     auto tcp_socket_ptr = new QTcpSocket();
     auto tcp_socket_adapter_ptr = QSharedPointer<TcpSocketAdapter>::create(tcp_socket_ptr);
-    tcp_socket_adapter_ptr->connectToHost(host_address, ITcpServerAdapter::SOCKET_PORT);
+    tcp_socket_adapter_ptr->connectToHost(host_address, TCP_SOCKET_PORT);
     return QSharedPointer<Connection>::create(tcp_socket_adapter_ptr);
 }
-
