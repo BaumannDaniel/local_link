@@ -1,10 +1,12 @@
 #include "tcp_socket_adapter.h"
 
-llink::TcpSocketAdapter::TcpSocketAdapter(QTcpSocket* tcp_socket_ptr, QObject *parent)
+llink::TcpSocketAdapter::TcpSocketAdapter(QTcpSocket *tcp_socket_ptr, QObject *parent)
     : ITcpSocketAdapter(parent),
-    tcp_socket_ptr_(tcp_socket_ptr) {
+      tcp_socket_ptr_(tcp_socket_ptr) {
     tcp_socket_ptr->setParent(this);
     connect(tcp_socket_ptr_, &QTcpSocket::readyRead, this, &ITcpSocketAdapter::readyRead);
+    connect(tcp_socket_ptr_, &QTcpSocket::connected, this, &ITcpSocketAdapter::connected);
+    connect(tcp_socket_ptr_, &QTcpSocket::disconnected, this, &ITcpSocketAdapter::disconnected);
 }
 
 quint64 llink::TcpSocketAdapter::write(const QByteArray &byte_array) const {

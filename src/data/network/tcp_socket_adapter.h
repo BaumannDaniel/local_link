@@ -7,11 +7,13 @@ namespace llink {
         Q_OBJECT
 
     signals:
+        void connected();
+
+        void disconnected();
+
         void readyRead();
 
     public:
-        static constexpr quint16 SOCKET_PORT = 10051;
-
         explicit ITcpSocketAdapter(QObject *parent = nullptr) : QObject(parent) {
         }
 
@@ -26,12 +28,12 @@ namespace llink {
         QTcpSocket *tcp_socket_ptr_;
 
     public:
-        explicit TcpSocketAdapter(QTcpSocket* tcp_socket_ptr, QObject *parent = nullptr);
+        explicit TcpSocketAdapter(QTcpSocket *tcp_socket_ptr, QObject *parent = nullptr);
 
         quint64 write(const QByteArray &byte_array) const override;
 
         QByteArray readAll() const override;
 
-        void connectToHost(QHostAddress host_address, qint16 port) const;
+        void connectToHost(QHostAddress host_address, qint16 port) const override;
     };
 }
