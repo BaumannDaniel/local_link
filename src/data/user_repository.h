@@ -4,7 +4,7 @@
 #include <QSharedPointer>
 
 #include "network/network_api.h"
-#include "user.h"
+#include "model.h"
 
 namespace llink {
     class IUserRepository : public QObject {

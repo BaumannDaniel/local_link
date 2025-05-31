@@ -6,7 +6,7 @@ qt_add_library(local_link_data_lib STATIC
         network/udp_socket_adapter.h network/udp_socket_adapter.cpp
         call_manager.h call_manager.cpp
         connection.h connection.cpp
-        user.h
+        model.h
         user_repository.h user_repository.cpp
         user_status_manager.h user_status_manager.cpp
         video_recorder.h video_recorder.cpp
