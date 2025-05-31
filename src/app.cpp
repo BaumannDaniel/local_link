@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
     QQmlApplicationEngine engine;
     auto video_recorder_ptr = QSharedPointer<llink::VideoRecorder>::create();
-    auto udp_socket_adapter_ptr = QSharedPointer<llink::UdpSocketAdapter>::create();
+    auto udp_socket_adapter_ptr = new llink::UdpSocketAdapter();
     auto tcp_server_adapter_ptr = new llink::TcpServerAdapter();
     auto network_api_ptr = QSharedPointer<llink::NetworkApi>::create(udp_socket_adapter_ptr, tcp_server_adapter_ptr);
     auto user_repository_ptr = QSharedPointer<llink::UserRepository>::create(network_api_ptr);

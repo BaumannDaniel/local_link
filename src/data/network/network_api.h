@@ -21,6 +21,7 @@ namespace llink {
         void newConnection(QSharedPointer<llink::Connection> connection_ptr_);
 
     public:
+        static constexpr quint16 UDP_SOCKET_PORT = 10050;
         static constexpr quint16 TCP_SOCKET_PORT = 10051;
 
         explicit INetworkApi(QObject *parent = nullptr) : QObject(parent) {
@@ -37,7 +38,7 @@ namespace llink {
 
     class NetworkApi : public INetworkApi {
         Q_OBJECT
-        QSharedPointer<IUdpSocketAdapter> i_udp_socket_adapter_ptr_ = nullptr;
+        IUdpSocketAdapter *i_udp_socket_adapter_ptr_ = nullptr;
         ITcpServerAdapter *i_tcp_server_adapter_ptr_ = nullptr;
 
     private slots:
@@ -47,7 +48,7 @@ namespace llink {
 
     public:
         NetworkApi(
-            QSharedPointer<IUdpSocketAdapter> i_udp_socket_adapter_ptr,
+            IUdpSocketAdapter *i_udp_socket_adapter_ptr,
             ITcpServerAdapter *i_tcp_server_adapter_ptr,
             QObject *parent = nullptr
         );

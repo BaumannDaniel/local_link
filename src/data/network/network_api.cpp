@@ -5,18 +5,20 @@
 #include "network_api.h"
 
 llink::NetworkApi::NetworkApi(
-    QSharedPointer<IUdpSocketAdapter> i_udp_socket_adapter_ptr,
+    IUdpSocketAdapter *i_udp_socket_adapter_ptr,
     ITcpServerAdapter *i_tcp_server_adapter_ptr,
     QObject *parent
 )
     : INetworkApi(parent),
-      i_udp_socket_adapter_ptr_(std::move(i_udp_socket_adapter_ptr)),
+      i_udp_socket_adapter_ptr_(i_udp_socket_adapter_ptr),
       i_tcp_server_adapter_ptr_(i_tcp_server_adapter_ptr) {
-    connect(i_udp_socket_adapter_ptr_.get(), &IUdpSocketAdapter::readyRead,
+    connect(i_udp_socket_adapter_ptr_, &IUdpSocketAdapter::readyRead,
             this, &NetworkApi::processDatagrams);
     connect(i_tcp_server_adapter_ptr_, &ITcpServerAdapter::newConnection,
             this, &NetworkApi::processNewConnection);
+    i_udp_socket_adapter_ptr_->setParent(this);
     i_tcp_server_adapter_ptr_->setParent(this);
+    i_udp_socket_adapter_ptr_->bind(UDP_SOCKET_PORT, QAbstractSocket::DefaultForPlatform);
     i_tcp_server_adapter_ptr_->listen(QHostAddress::Any, TCP_SOCKET_PORT);
 }
 
@@ -26,7 +28,7 @@ void llink::NetworkApi::processDatagrams() {
     quint8 message_type;
     while (i_udp_socket_adapter_ptr_->hasPendingDatagrams()) {
         datagram_array.resize(i_udp_socket_adapter_ptr_->pendingDatagramSize());
-        i_udp_socket_adapter_ptr_->readDatagram(datagram_array.data(), datagram_array.size(), &host_address);
+        i_udp_socket_adapter_ptr_->readDatagram(datagram_array.data(), datagram_array.size(), &host_address, nullptr);
         QDataStream stream(&datagram_array, QIODeviceBase::ReadOnly);
         stream >> message_type;
         qDebug() << "Received Message of type: " << message_type;

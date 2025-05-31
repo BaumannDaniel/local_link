@@ -13,12 +13,13 @@ namespace llink {
         explicit IUdpSocketAdapter(QObject *parent = nullptr) : QObject(parent) {
         }
 
+        virtual bool bind(quint16 port, QAbstractSocket::BindMode bind_mode) = 0;
+
         virtual bool hasPendingDatagrams() const = 0;
 
         virtual qint64 pendingDatagramSize() const = 0;
 
-        virtual qint64 readDatagram(char *data, qint64 maxSize, QHostAddress *address = nullptr,
-                                    quint16 *port = nullptr) = 0;
+        virtual qint64 readDatagram(char *data, qint64 maxSize, QHostAddress *address, quint16 *port) = 0;
 
         virtual qint64 writeDatagram(const QByteArray &datagram, const QHostAddress &host, quint16 port) = 0;
 
@@ -27,10 +28,13 @@ namespace llink {
     };
 
     class UdpSocketAdapter : public IUdpSocketAdapter {
-        QUdpSocket *udp_socket_;
+        Q_OBJECT
+        QUdpSocket *udp_socket_ptr_;
 
     public:
         UdpSocketAdapter();
+
+        bool bind(quint16 port, QAbstractSocket::BindMode bind_mode) override;
 
         bool hasPendingDatagrams() const override;
 
