@@ -1,6 +1,6 @@
 qt_add_library(local_link_data_lib STATIC
         network/network_api.h network/network_api.cpp
-        network/network_message.h
+        network/network_model.h
         network/tcp_server_adapter.h network/tcp_server_adapter.cpp
         network/tcp_socket_adapter.h network/tcp_socket_adapter.cpp
         network/udp_socket_adapter.h network/udp_socket_adapter.cpp

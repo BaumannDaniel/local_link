@@ -3,7 +3,7 @@
 #include <QSharedPointer>
 
 #include "connection.h"
-#include "network_message.h"
+#include "network_model.h"
 #include "tcp_server_adapter.h"
 #include "tcp_socket_adapter.h"
 #include "udp_socket_adapter.h"
