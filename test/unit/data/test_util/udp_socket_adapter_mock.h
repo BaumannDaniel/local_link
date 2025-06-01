@@ -1,8 +1,9 @@
 #pragma once
 #include <QUdpSocket>
 #include <QQueue>
+#include <gmock/gmock.h>
 
-#include "udp_socket_adapter.h"
+#include "network/udp_socket_adapter.h"
 
 namespace llink {
     struct TestDatagram {
@@ -20,6 +21,8 @@ namespace llink {
     public:
         QQueue<TestDatagram> pending_datagrams;
         QList<TestDatagram> written_datagrams;
+
+        MOCK_METHOD(bool, bind, (quint16 port, QAbstractSocket::BindMode bind_mode), (override));
 
         bool hasPendingDatagrams() const override;
 
