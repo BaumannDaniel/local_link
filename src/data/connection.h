@@ -6,7 +6,7 @@
 namespace llink {
     class Connection : public QObject {
         Q_OBJECT
-        constexpr auto IMAGE_FORMAT_JPEG = "JPEG";
+        static constexpr auto IMAGE_FORMAT_JPEG = "JPEG";
         ITcpSocketAdapter *i_tcp_socket_adapter_ptr_;
         QByteArray data_stream_buffer;
         quint32 remaining_bytes_in_message = 0;
