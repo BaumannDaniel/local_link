@@ -8,13 +8,15 @@
 namespace llink {
     struct UiUser {
         QString name;
+        QString address;
     };
 
     enum UiUserAttributeRoles {
         NameRole = Qt::UserRole + 1,
+        AddressRole = NameRole + 1
     };
 
-    class UsersListModel : public QAbstractListModel {
+    class users_list_model : public QAbstractListModel {
         Q_OBJECT
         QList<UiUser> ui_users_;
         QSharedPointer<IUserRepository> i_user_repository_ptr_;
@@ -27,7 +29,7 @@ namespace llink {
         QHash<int, QByteArray> roleNames() const override;
 
     public:
-        UsersListModel(
+        users_list_model(
             QObject *parent,
             QSharedPointer<IUserRepository> i_user_repository_ptr,
             QSharedPointer<IUserStatusManager> i_user_status_manager_ptr

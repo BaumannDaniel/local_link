@@ -3,8 +3,8 @@
 #include <QHash>
 #include <QSharedPointer>
 
-#include "network_api.h"
-#include "user.h"
+#include "network/network_api.h"
+#include "model.h"
 
 namespace llink {
     class IUserRepository : public QObject {
