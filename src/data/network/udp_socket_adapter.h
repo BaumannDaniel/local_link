@@ -8,8 +8,6 @@ namespace llink {
         Q_OBJECT
 
     public:
-        static constexpr quint16 SOCKET_PORT = 10050;
-
         explicit IUdpSocketAdapter(QObject *parent = nullptr) : QObject(parent) {
         }
 
