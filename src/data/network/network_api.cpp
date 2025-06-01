@@ -80,7 +80,7 @@ void llink::NetworkApi::sendUserInfo(QHostAddress host_address, UserInfo user_in
 
 QSharedPointer<llink::Connection> llink::INetworkApi::createConnection(const QHostAddress &host_address) {
     auto tcp_socket_ptr = new QTcpSocket();
-    auto tcp_socket_adapter_ptr = QSharedPointer<TcpSocketAdapter>::create(tcp_socket_ptr);
+    auto tcp_socket_adapter_ptr = new TcpSocketAdapter(tcp_socket_ptr);
     tcp_socket_adapter_ptr->connectToHost(host_address, TCP_SOCKET_PORT);
     return QSharedPointer<Connection>::create(tcp_socket_adapter_ptr);
 }

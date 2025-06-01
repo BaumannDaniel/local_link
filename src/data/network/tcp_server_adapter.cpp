@@ -7,10 +7,9 @@ llink::TcpServerAdapter::TcpServerAdapter(QObject *parent)
     connect(tcp_server_ptr_, &QTcpServer::newConnection, this, &ITcpServerAdapter::newConnection);
 }
 
-QSharedPointer<llink::ITcpSocketAdapter> llink::TcpServerAdapter::nextPendingConnection() const {
+llink::ITcpSocketAdapter *llink::TcpServerAdapter::nextPendingConnection() const {
     auto tcp_socket_ptr = tcp_server_ptr_->nextPendingConnection();
-    auto tcp_socket_adapter_ptr = QSharedPointer<TcpSocketAdapter>::create(tcp_socket_ptr);
-    return tcp_socket_adapter_ptr;
+    return new TcpSocketAdapter(tcp_socket_ptr);
 }
 
 bool llink::TcpServerAdapter::listen(const QHostAddress &host_address, const quint16 port) {
