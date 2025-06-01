@@ -1,17 +1,19 @@
-#include "network_api.h"
+#include "network/network_api.h"
 
 #include <gtest/gtest.h>
 
-#include "mocks/network_api_mock.h"
-#include "mocks/udp_socket_adapter_mock.h"
+#include "../test_util/network_api_mock.h"
+#include "../test_util/tcp_server_adapter_mock.h"
+#include "../test_util/udp_socket_adapter_mock.h"
 
 namespace llink {
     class NetworkApiTest : public testing::Test {
     protected:
         const QString TEST_USER_NAME = "test";
         const QString TEST_HOST_ADDRESS = "192.168.1.1";
-        QSharedPointer<MockUdpSocketAdapter> mock_udp_socket_adapter_ptr = QSharedPointer<llink::MockUdpSocketAdapter>::create();;
-        NetworkApi network_api = NetworkApi(mock_udp_socket_adapter_ptr);
+        MockUdpSocketAdapter *mock_udp_socket_adapter_ptr = new MockUdpSocketAdapter();
+        MockTcpServerAdapter *mock_tcp_server_adapter_ptr = new MockTcpServerAdapter();
+        NetworkApi network_api = NetworkApi(mock_udp_socket_adapter_ptr, mock_tcp_server_adapter_ptr);
         NetworkApiSignalTester network_api_signal_tester = NetworkApiSignalTester(&network_api);
     };
 
@@ -61,8 +63,8 @@ namespace llink {
         ASSERT_EQ(mock_udp_socket_adapter_ptr->written_datagrams.size(), 1);
         auto datagram = mock_udp_socket_adapter_ptr->written_datagrams.first();
         ASSERT_EQ(datagram.host, QHostAddress::Broadcast);
-        ASSERT_EQ(datagram.port, IUdpSocketAdapter::SOCKET_PORT);
-        quint16 message_type;
+        ASSERT_EQ(datagram.port, INetworkApi::UDP_SOCKET_PORT);
+        quint8 message_type;
         QDataStream stream(&datagram.data, QIODeviceBase::ReadOnly);
         stream >> message_type;
         ASSERT_EQ(message_type, MessageType::USER_INFO_QUERY);
@@ -73,8 +75,8 @@ namespace llink {
         ASSERT_EQ(mock_udp_socket_adapter_ptr->written_datagrams.size(), 1);
         auto datagram = mock_udp_socket_adapter_ptr->written_datagrams.first();
         ASSERT_EQ(datagram.host, QHostAddress::Broadcast);
-        ASSERT_EQ(datagram.port, IUdpSocketAdapter::SOCKET_PORT);
-        quint16 message_type;
+        ASSERT_EQ(datagram.port, INetworkApi::UDP_SOCKET_PORT);
+        quint8 message_type;
         QDataStream stream(&datagram.data, QIODeviceBase::ReadOnly);
         stream >> message_type;
         ASSERT_EQ(message_type, MessageType::USER_DISCONNECTED);
@@ -87,8 +89,8 @@ namespace llink {
         ASSERT_EQ(mock_udp_socket_adapter_ptr->written_datagrams.size(), 1);
         auto datagram = mock_udp_socket_adapter_ptr->written_datagrams.first();
         ASSERT_EQ(datagram.host, test_host_address);
-        ASSERT_EQ(datagram.port, IUdpSocketAdapter::SOCKET_PORT);
-        quint16 message_type;
+        ASSERT_EQ(datagram.port, INetworkApi::UDP_SOCKET_PORT);
+        quint8 message_type;
         UserInfo user_info;
         QDataStream stream(&datagram.data, QIODeviceBase::ReadOnly);
         stream >> message_type;

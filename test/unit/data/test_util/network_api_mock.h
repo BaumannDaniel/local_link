@@ -2,7 +2,7 @@
 #include <QHostAddress>
 #include <QObject>
 
-#include "network_api.h"
+#include "network/network_api.h"
 
 namespace llink {
     class NetworkApiSignalTester : public QObject {
